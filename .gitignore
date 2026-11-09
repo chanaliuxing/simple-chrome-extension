@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & data
+*.sqlite3
+*.sqlite3-wal
+*.sqlite3-shm
+*.jsonl
+.private/
+data/
+
+# Extension / Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.env
+.env.local
+*.log

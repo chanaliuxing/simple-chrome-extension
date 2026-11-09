@@ -1,0 +1,53 @@
+{
+  "manifest_version": 3,
+  "name": "GradEvidence 云端采集",
+  "version": "1.2.1",
+  "minimum_chrome_version": "114",
+  "description": "点一下图标，把当前已加载完的面经页面保存到浏览器本地，并直接推送到 GradEvidence 云端。只读已渲染内容，不点击、不翻页、不读 Cookie、不改网页。",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "unlimitedStorage",
+    "alarms",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://www.1point3acres.com/*",
+    "https://1point3acres.com/*",
+    "https://api.gradevidence.click/*",
+    "http://127.0.0.1/*",
+    "http://localhost/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "保存并推送这页面经到 GradEvidence"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+U",
+        "mac": "Command+Shift+U"
+      },
+      "description": "保存并推送当前页面（帖子页、home 页、题目页、面试指南页都可以）"
+    },
+    "save_home_thread": {
+      "description": "保存并推送 /home/thread 页面"
+    },
+    "save_problem": {
+      "description": "保存并推送 /interview/problems 题目页"
+    }
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src https://api.gradevidence.click http://127.0.0.1:* http://localhost:*"
+  },
+  "icons": {
+    "128": "icon.png"
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "GradEvidence 一键采集",
+  "version": "0.7.0",
+  "minimum_chrome_version": "114",
+  "description": "点一下图标或按快捷键，把当前面经帖子或面试题保存到本机接收器。不点击、不翻页、不读取 Cookie。",
+  "permissions": [
+    "activeTab",
+    "notifications",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://www.1point3acres.com/*",
+    "https://1point3acres.com/*",
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "保存这条面经到本机"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "保存当前页面（帖子页、home 页、题目页、面试指南页都可以）"
+    },
+    "save_home_thread": {
+      "suggested_key": {
+        "default": "Alt+Shift+H"
+      },
+      "description": "保存 /home/thread 页面（主楼编号、公司卡片、标签公司）"
+    },
+    "save_problem": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P",
+        "mac": "Command+Shift+P"
+      },
+      "description": "保存 /interview/problems 题目页（题面、分类、频率、标签、关联面经）"
+    }
+  },
+  "icons": {
+    "128": "icon.png"
+  }
+}

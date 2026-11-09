@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GradEvidence 云端采集 · 设置</title>
+  <style>
+    :root { color-scheme: light dark; --line: #d0d4da; --muted: #667; --ok: #0a8f2f; --err: #c0021b; }
+    body { font: 14px/1.6 -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0 auto; max-width: 860px; padding: 24px 16px 64px; }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    h2 { font-size: 16px; margin: 28px 0 8px; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+    p.lede, .muted { color: var(--muted); }
+    label { display: block; margin: 10px 0 4px; font-weight: 600; }
+    input[type=text], input[type=password] { width: 100%; box-sizing: border-box; padding: 8px; font: inherit; border: 1px solid var(--line); border-radius: 6px; }
+    .check { font-weight: 400; display: flex; gap: 8px; align-items: flex-start; }
+    button { font: inherit; padding: 6px 14px; margin: 8px 8px 0 0; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; background: transparent; }
+    button.primary { background: #1f6feb; color: #fff; border-color: #1f6feb; }
+    .result { margin-top: 8px; padding: 8px 10px; border-radius: 6px; border: 1px solid var(--line); white-space: pre-wrap; display: none; }
+    .result.ok { display: block; border-color: var(--ok); }
+    .result.err { display: block; border-color: var(--err); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    td.status { white-space: nowrap; }
+    details summary { cursor: pointer; color: var(--muted); }
+    code { font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>GradEvidence 云端采集</h1>
+  <p class="lede">在一亩三分地打开帖子、等页面加载完，点一下扩展图标（或按 Ctrl/⌘+Shift+U）：本页内容先存到浏览器本地，再直接推送到 GradEvidence 云端。不需要启动任何本地服务。扩展只读已经显示出来的内容，不点击、不翻页、不读 Cookie、不改网页，也不向网站发送任何请求。</p>
+
+  <h2>1. 你的 token</h2>
+  <p class="muted">token 是我们发给你的个人凭证（以 <code>gec_</code> 开头）。每个 token 24 小时内最多推送 1000 篇；请不要转给别人，你推送的每一条都会记在这个 token 名下。</p>
+  <label for="token">Token</label>
+  <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="gec_...">
+  <details>
+    <summary>高级：API 地址</summary>
+    <label for="apiBase">API 地址（默认 https://api.gradevidence.click，开发时可填 http://127.0.0.1:端口）</label>
+    <input id="apiBase" type="text" spellcheck="false">
+  </details>
+  <button class="primary" id="save">保存并测试连接</button>
+  <div class="result" id="who"></div>
+
+  <h2>2. 保存方式</h2>
+  <label class="check"><input type="checkbox" id="localArchive"> 在浏览器本地保留一份采集记录（含正文，可导出）</label>
+  <label class="check"><input type="checkbox" id="localReceiver"> 同时发到本机接收器 127.0.0.1:18765（只有运行了 <code>scripts/browser-capture-receiver</code> 才需要打开）</label>
+  <label class="check"><input type="checkbox" id="notifications"> 每次保存后显示系统通知</label>
+  <button id="saveOptions">保存选项</button>
+  <div class="result" id="optionsResult"></div>
+
+  <h2>3. 待推送队列</h2>
+  <p class="muted" id="outboxSummary">读取中…</p>
+  <button id="flush">立即重试推送</button>
+  <div class="result" id="flushResult"></div>
+  <table id="outbox"></table>
+
+  <h2>4. 最近记录</h2>
+  <p class="muted">「推送」是送到服务器的结果；「网站」是这条页面现在在网站上的状态：推送的页面几分钟内自动上线，并进入人工审核；审核不通过的会被隐藏。</p>
+  <p class="muted" id="historySummary"></p>
+  <button id="refreshStatus">刷新上线状态</button>
+  <div class="result" id="statusResult"></div>
+  <table id="history"></table>
+
+  <h2>5. 本地数据</h2>
+  <p class="muted" id="archiveSummary"></p>
+  <button id="export">导出本地记录（JSONL）</button>
+  <button id="clear">清空本地记录</button>
+  <div class="result" id="dataResult"></div>
+
+  <script src="options.js"></script>
+</body>
+</html>
